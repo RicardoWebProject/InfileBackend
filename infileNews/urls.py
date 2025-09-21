@@ -20,6 +20,7 @@ from django.urls import path, include
 from rest_framework import routers    
 from news.views.user import UserViewSet, CustomTokenObtainPairView
 from news.views.category import CategoryViewSet
+from news.views.category import CategoryViewSet
 from news.views.social_auth import GoogleAuthView, GoogleAuthCallbackView, FacebookAuthView, FacebookAuthCallbackView
 from news.views.email_verification import (
     SendEmailVerificationView, 
