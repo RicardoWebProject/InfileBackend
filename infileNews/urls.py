@@ -30,6 +30,12 @@ from news.views.email_verification import (
     ResendEmailVerificationView,
     check_email_verification_status
 )
+from news.views.password_reset import (
+    ForgotPasswordView,
+    ResetPasswordView,
+    change_password,
+    validate_reset_token
+)
 from news.views.auth_views import (
     CustomTokenRefreshView,
     logout_view,
@@ -65,6 +71,12 @@ urlpatterns = [
     path('auth/verify-email/', VerifyEmailView.as_view(), name='verify_email'),
     path('auth/resend-verification/', ResendEmailVerificationView.as_view(), name='resend_email_verification'),
     path('auth/check-verification/<str:email>/', check_email_verification_status, name='check_email_verification'),
+    
+    # Password reset endpoints
+    path('auth/forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
+    path('auth/reset-password/', ResetPasswordView.as_view(), name='reset_password'),
+    path('auth/change-password/', change_password, name='change_password'),
+    path('auth/validate-reset-token/', validate_reset_token, name='validate_reset_token'),
 ]
 
 # Servir archivos multimedia en desarrollo

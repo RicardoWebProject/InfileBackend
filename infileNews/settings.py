@@ -179,6 +179,9 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='noreply@infilenews.co
 EMAIL_VERIFICATION_TIMEOUT_HOURS = config('EMAIL_VERIFICATION_TIMEOUT_HOURS', default=24, cast=int)
 FRONTEND_URL = config('FRONTEND_URL', default='http://localhost:3000')
 
+# Password Reset Settings
+PASSWORD_RESET_TIMEOUT_HOURS = config('PASSWORD_RESET_TIMEOUT_HOURS', cast=int)
+
 # Facebook OAuth2 Configuration
 FACEBOOK_APP_ID = config('FACEBOOK_APP_ID')
 FACEBOOK_APP_SECRET = config('FACEBOOK_APP_SECRET')
