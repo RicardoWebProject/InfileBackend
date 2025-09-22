@@ -16,17 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework import routers    
 from news.views.user import UserViewSet, CustomTokenObtainPairView
 from news.views.category import CategoryViewSet
-from news.views.category import CategoryViewSet
+from news.views.news import NewsViewSet
 from news.views.social_auth import GoogleAuthView, GoogleAuthCallbackView, FacebookAuthView, FacebookAuthCallbackView
 from news.views.email_verification import (
     SendEmailVerificationView, 
     VerifyEmailView, 
     ResendEmailVerificationView,
     check_email_verification_status
+)
+from news.views.password_reset import (
+    ForgotPasswordView,
+    ResetPasswordView,
+    change_password,
+    validate_reset_token
 )
 from news.views.auth_views import (
     CustomTokenRefreshView,
@@ -39,6 +47,7 @@ router = routers.DefaultRouter()
 
 router.register('users', UserViewSet, basename='users')
 router.register('categories', CategoryViewSet, basename='categories')
+router.register('news', NewsViewSet, basename='news')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -62,4 +71,14 @@ urlpatterns = [
     path('auth/verify-email/', VerifyEmailView.as_view(), name='verify_email'),
     path('auth/resend-verification/', ResendEmailVerificationView.as_view(), name='resend_email_verification'),
     path('auth/check-verification/<str:email>/', check_email_verification_status, name='check_email_verification'),
+    
+    # Password reset endpoints
+    path('auth/forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
+    path('auth/reset-password/', ResetPasswordView.as_view(), name='reset_password'),
+    path('auth/change-password/', change_password, name='change_password'),
+    path('auth/validate-reset-token/', validate_reset_token, name='validate_reset_token'),
 ]
+
+# Servir archivos multimedia en desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
