@@ -19,8 +19,20 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=25)
     email = models.CharField(max_length=50, unique=True)
     password = models.CharField(max_length=225)
-    phone_number = models.CharField(max_length=10)
+    phone_number = models.CharField(max_length=10, blank=True, null=True)
     rol = models.CharField(max_length=10, default='')
+    
+    # Campos para autenticación social
+    social_provider = models.CharField(max_length=20, blank=True, null=True)  # 'google', 'facebook', etc.
+    social_id = models.CharField(max_length=100, blank=True, null=True)  # ID del usuario en la red social
+    avatar_url = models.URLField(blank=True, null=True)  # URL del avatar de la red social
+    is_social_user = models.BooleanField(default=False)
+    
+    # Campos para verificación de email
+    email_verified = models.BooleanField(default=False)
+    email_verification_token = models.CharField(max_length=100, blank=True, null=True)
+    email_verification_sent_at = models.DateTimeField(blank=True, null=True)
+    
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(blank=True, null=True)
     

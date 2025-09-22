@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifica tu email - {{ site_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .verify-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white !important;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .verify-button:hover {
+            background-color: #0056b3;
+        }
+        .url-fallback {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-size: 12px;
+            color: #666;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">{{ site_name }}</div>
+            <h1>¡Bienvenido a {{ site_name }}!</h1>
+        </div>
+        
+        <div class="content">
+            <p>Hola <strong>{{ user.first_name }}</strong>,</p>
+            
+            <p>Gracias por registrarte en {{ site_name }}. Para completar tu registro y activar tu cuenta, necesitamos verificar tu dirección de email.</p>
+            
+            <p>Por favor, haz clic en el siguiente botón para verificar tu email:</p>
+            
+            <div style="text-align: center;">
+                <a href="{{ verification_url }}" class="verify-button">Verificar Email</a>
+            </div>
+            
+            <p>Si el botón no funciona, copia y pega el siguiente enlace en tu navegador:</p>
+            <div class="url-fallback">
+                {{ verification_url }}
+            </div>
+            
+            <div class="warning">
+                <strong>⏰ Importante:</strong> Este enlace expirará en {{ timeout_hours }} horas por razones de seguridad.
+            </div>
+            
+            <p>Una vez que verifiques tu email, podrás:</p>
+            <ul>
+                <li>Acceder completamente a tu cuenta</li>
+                <li>Recibir notificaciones importantes</li>
+                <li>Personalizar tu experiencia</li>
+                <li>Mantener tu cuenta segura</li>
+            </ul>
+            
+            <p>Si no creaste una cuenta en {{ site_name }}, puedes ignorar este email de forma segura. Tu dirección de email no será utilizada.</p>
+            
+            <p>¡Esperamos verte pronto en nuestra plataforma!</p>
+        </div>
+        
+        <div class="footer">
+            <p>Saludos,<br>
+            <strong>El equipo de {{ site_name }}</strong></p>
+            
+            <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+            
+            <p style="font-size: 11px;">
+                Este es un email automático, por favor no respondas a este mensaje. 
+                Si tienes problemas con la verificación, contacta nuestro soporte.
+            </p>
+            
+            <p style="font-size: 11px;">
+                © {{ "now"|date:"Y" }} {{ site_name }}. Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
