@@ -16,11 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from rest_framework import routers    
 from news.views.user import UserViewSet, CustomTokenObtainPairView
 from news.views.category import CategoryViewSet
-from news.views.category import CategoryViewSet
+from news.views.news import NewsViewSet
 from news.views.social_auth import GoogleAuthView, GoogleAuthCallbackView, FacebookAuthView, FacebookAuthCallbackView
 from news.views.email_verification import (
     SendEmailVerificationView, 
@@ -39,6 +41,7 @@ router = routers.DefaultRouter()
 
 router.register('users', UserViewSet, basename='users')
 router.register('categories', CategoryViewSet, basename='categories')
+router.register('news', NewsViewSet, basename='news')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -63,3 +66,7 @@ urlpatterns = [
     path('auth/resend-verification/', ResendEmailVerificationView.as_view(), name='resend_email_verification'),
     path('auth/check-verification/<str:email>/', check_email_verification_status, name='check_email_verification'),
 ]
+
+# Servir archivos multimedia en desarrollo
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
