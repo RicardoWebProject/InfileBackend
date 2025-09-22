@@ -27,6 +27,12 @@ from news.views.email_verification import (
     ResendEmailVerificationView,
     check_email_verification_status
 )
+from news.views.auth_views import (
+    CustomTokenRefreshView,
+    logout_view,
+    verify_token,
+    TokenInfoView
+)
 
 router = routers.DefaultRouter()
 
@@ -36,7 +42,15 @@ router.register('categories', CategoryViewSet, basename='categories')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    
+    # Authentication endpoints
     path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', verify_token, name='token_verify'),
+    path('api/token/info/', TokenInfoView.as_view(), name='token_info'),
+    path('api/logout/', logout_view, name='logout'),
+    
+    # Social authentication
     path('auth/google/', GoogleAuthView.as_view(), name='google_auth'),
     path('auth/google/callback/', GoogleAuthCallbackView.as_view(), name='google_auth_callback'),
     path('auth/facebook/', FacebookAuthView.as_view(), name='facebook_auth'),
